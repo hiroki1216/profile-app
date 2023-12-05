@@ -8,7 +8,7 @@ const hiddenNav = () => {
 };
 </script>
 <template>
-  <header class="sticky top-0">
+  <header class="sticky top-0 z-50">
     <nav class="flex items-center justify-between flex-wrap bg-pink-500 p-6">
       <div class="flex items-center flex-shrink-0 text-white mr-6">
         <img src="@/assets/logo.png" class="fill-current h-8 w-8 mr-2" width="54" height="54" alt="H.Sプロフィールページアイコン">

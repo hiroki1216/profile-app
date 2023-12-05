@@ -20,7 +20,7 @@ const onUpdateName = (value)=>{
     about.value.name = value.target.value;
 }
 const onUpdateIntroduction = (value)=>{
-    about.value.introduction = value.target.value;
+    about.value.introduction = value;
 }
 const onUpdateCertification = (value)=>{
     about.value.certification = value.target.value;
@@ -29,10 +29,10 @@ const onUpdateSpeciality = (value)=>{
     about.value.speciality = value.target.value;
 }
 const onUpdateExperience = (value)=>{
-    about.value.experiences = value.target.value;
+    about.value.experiences = value;
 }
 const onUpdateStrength = (value)=>{
-    about.value.strength = value.target.value;
+    about.value.strength = value;
 }
 onMounted(async () => {
     const res = await getAbout();
@@ -63,55 +63,43 @@ const onSubmit = async()=>{
 }
 </script>
 <template>
-    <div class="bg-gradient-to-r from-cyan-500 to-yellow-500 h-screen">
+    <div class="bg-gradient-to-r from-cyan-500 to-yellow-500">
         <h2 v-if="isNil" class="text-white font-bold text-xl underline underline-offset-4 p-8">About作成画面</h2>
         <h2 v-else="isNil" class="text-white font-bold text-xl underline underline-offset-4 p-8">About編集画面</h2>
         <div class="flex flex-col md:flex-row md:flex-wrap md:gap-4 justify-center items-center">
             <div class="bg-white border border-indigo-500 rounded-lg p-8">
                 <div class="md:grid grid-cols-2 md:gap-4">
-                    <div class="">
-                        <Input 
-                        :label-name="labelName" 
-                        :input-value="about.name"
-                        @input = "onUpdateName"
-                        ></Input>
-                    </div>
-                    <div class="">
-                        <Input 
-                        :label-name="labelCertification" 
-                        :input-value="about.certification"
-                        @input = "onUpdateCertification"
-                        ></Input>
-                    </div>
-                    <div class="">
-                        <Input 
-                        :label-name="labelSpeciality" 
-                        :input-value="about.speciality"
-                        @input = "onUpdateSpeciality"
-                        ></Input>
-                    </div>
-                    <div class="">
-                        <Textarea 
-                        :label-name="labelIntroduction" 
-                        :textarea-value="about.introduction"
-                        @input = "onUpdateIntroduction"
-                        ></Textarea>
-                    </div>
-                    <div class="">
-                        <Textarea 
-                        :label-name="labelExperience" 
-                        :textarea-value="about.experiences"
-                        @input = "onUpdateExperience"
-                        ></Textarea>
-                    </div>
-                    <div class="">
-                        <Textarea 
-                        :label-name="labelStrength" 
-                        :textarea-value="about.strength"
-                        @input = "onUpdateStrength"
-                        ></Textarea>
-                    </div>
+                    <Input 
+                    :label-name="labelName" 
+                    :input-value="about.name"
+                    @input = "onUpdateName"
+                    ></Input>
+                    <Input 
+                    :label-name="labelCertification" 
+                    :input-value="about.certification"
+                    @input = "onUpdateCertification"
+                    ></Input>
+                    <Input 
+                    :label-name="labelSpeciality" 
+                    :input-value="about.speciality"
+                    @input = "onUpdateSpeciality"
+                    ></Input>
                 </div>
+                    <Textarea 
+                    :label-name="labelIntroduction" 
+                    :textarea-value="about.introduction"
+                    @input = "onUpdateIntroduction"
+                    ></Textarea>
+                    <Textarea 
+                    :label-name="labelExperience" 
+                    :textarea-value="about.experiences"
+                    @input = "onUpdateExperience"
+                    ></Textarea>
+                    <Textarea 
+                    :label-name="labelStrength" 
+                    :textarea-value="about.strength"
+                    @input = "onUpdateStrength"
+                    ></Textarea>
                 <div class="">
                     <PrimaryButton v-if="isNil"
                     :type="submitType" 

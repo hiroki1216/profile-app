@@ -4,6 +4,7 @@ import Textarea from '@/components/common/Textarea.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import useWork from '../../composable/useWork.ts'
 import { useRouter } from "vue-router";
+
 const router = useRouter();
 
 const labelProjectName = 'プロジェクト名'
@@ -30,13 +31,13 @@ const onUpdateTool = (value)=>{
     work.value.tool = value.target.value;
 }
 const onUpdateIntroduction = (value)=>{
-    work.value.introduction = value.target.value;
+    work.value.introduction = value;
 }
 const onUpdateResponsible  = (value)=>{
-    work.value.responsible = value.target.value;
+    work.value.responsible = value;
 }
 const onUpdateAcquiredSkill = (value)=>{
-    work.value.acquiredSkill = value.target.value;
+    work.value.acquiredSkill = value;
 }
 const onSubmit = async()=>{
     try{
@@ -49,7 +50,7 @@ const onSubmit = async()=>{
 }
 </script>
 <template>
-    <div class="bg-gradient-to-r from-cyan-500 to-yellow-500 h-screen">
+    <div class="bg-gradient-to-r from-cyan-500 to-yellow-500">
         <h2 class="text-white font-bold text-xl underline underline-offset-4 p-8">Work作成画面</h2>
         <div class="flex flex-col md:flex-row md:flex-wrap md:gap-4 justify-center items-center">
             <div class="bg-white border border-indigo-500 rounded-lg p-8">
@@ -74,22 +75,22 @@ const onSubmit = async()=>{
                         :input-value="work.tool"
                         @input = "onUpdateTool"
                     ></Input>
-                    <Textarea 
-                        :label-name="labelIntroduction" 
-                        :textarea-value="work.introduction"
-                        @input = "onUpdateIntroduction"
-                    ></Textarea>
-                    <Textarea 
-                        :label-name="labelResponsible" 
-                        :textarea-value="work.responsible"
-                        @input = "onUpdateResponsible"
-                    ></Textarea>
-                    <Textarea 
-                        :label-name="labelAcquiredSkill" 
-                        :textarea-value="work.acquiredSkill"
-                        @input = "onUpdateAcquiredSkill"
-                    ></Textarea>
                 </div>
+                <Textarea 
+                    :label-name="labelIntroduction" 
+                    :textarea-value="work.introduction"
+                    @input = "onUpdateIntroduction"
+                ></Textarea>
+                <Textarea 
+                    :label-name="labelResponsible" 
+                    :textarea-value="work.responsible"
+                    @input = "onUpdateResponsible"
+                ></Textarea>
+                <Textarea 
+                    :label-name="labelAcquiredSkill" 
+                    :textarea-value="work.acquiredSkill"
+                    @input = "onUpdateAcquiredSkill"
+                ></Textarea>
                 <PrimaryButton 
                     :type="submitType" 
                     :name="submitName" 

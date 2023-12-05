@@ -6,6 +6,7 @@ import DangerButton from '@/components/common/DangerButton.vue'
 import GreenButton from '@/components/common/GreenButton.vue'
 import Input from '@/components/common/Input.vue'
 import Textarea from '@/components/common/Textarea.vue'
+import DisplayHtml from '@/components/common/DisplayHtml.vue'
 import { onMounted, nextTick,ref } from 'vue'
 import { useRouter } from "vue-router";
 
@@ -47,9 +48,9 @@ onMounted(async () => {
                 <div v-if="isEmpty">
                     <p class="text-gray-400">Worksが登録されていません。</p>
                 </div>
-                <div v-else>
+                                <div v-else>
                     <ul v-for="(item, index) in works" :key="index">
-                        <li class="mb-4 grid grid-cols-2 justify-items-center">
+                        <li class="mb-4 grid grid-cols-2">
                             <a class="cursor-pointer text-blue-500 hover:underline mr-8" @click.prevent = "fetchWorkData(item.ID)">projectName: {{ item.projectName }}</a>
                             <div>
                                 <DangerButton
@@ -91,11 +92,11 @@ onMounted(async () => {
                         :input-value="about.name"
                         :isDisabled = true
                         ></Input>
-                        <Textarea 
+                        <DisplayHtml 
                         :label-name="'自己紹介'" 
                         :textarea-value="about.introduction"
                         :isDisabled = true
-                        ></Textarea>
+                        ></DisplayHtml>
                         <Input 
                         :label-name="'資格'" 
                         :input-value="about.certification"
@@ -106,16 +107,16 @@ onMounted(async () => {
                         :input-value="about.speciality"
                         :isDisabled = true
                         ></Input>
-                        <Textarea 
+                        <DisplayHtml 
                         :label-name="'開発経験'" 
                         :textarea-value="about.experiences"
                         :isDisabled = true
-                        ></Textarea>
-                        <Textarea 
+                        ></DisplayHtml>
+                        <DisplayHtml 
                         :label-name="'アピールポイント'" 
                         :textarea-value="about.strength"
                         :isDisabled = true
-                        ></Textarea>
+                        ></DisplayHtml>
                     </div>
                     <GreenButton
                         class="sticky bottom-0 float-right"

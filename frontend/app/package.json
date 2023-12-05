@@ -1,5 +1,5 @@
 {
-  "name": "vue-practice",
+  "name": "profile-frontend",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,8 +10,10 @@
   "dependencies": {
     "@auth0/auth0-vue": "^2.3.1",
     "@heroicons/vue": "^2.0.18",
+    "@tinymce/tinymce-vue": "^5.1.1",
     "@vueuse/core": "^10.5.0",
-    "vue": "^3.3.4",
+    "dotenv": "^16.3.1",
+    "vue": "^3.3.9",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
