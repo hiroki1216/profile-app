@@ -91,7 +91,8 @@ func putWorkdata(c echo.Context) error {
     if err := c.Bind(&work); err != nil {
         return c.JSON(http.StatusBadRequest, "Invalid JSON data")
     }
-    db.DB.Model(&work).Updates(&work)
+    // db.DB.Debug().Model(&work).Updates(&work)
+    db.DB.Save(&work)
     return c.JSON(http.StatusOK, work)
 }
 func putAboutdata(c echo.Context) error {
@@ -99,7 +100,8 @@ func putAboutdata(c echo.Context) error {
     if err := c.Bind(&about); err != nil {
         return c.JSON(http.StatusBadRequest, "Invalid JSON data")
     }
-    db.DB.Model(&about).Updates(&about)
+    // db.DB.Model(&about).Updates(&about)
+    db.DB.Save(&about)
     return c.JSON(http.StatusOK, about)
 }
 //DELETE
@@ -108,6 +110,6 @@ func deleteWorkdata(c echo.Context) error {
     if err := c.Bind(&work); err != nil {
         return c.JSON(http.StatusBadRequest, "Invalid JSON data")
     }
-    db.DB.Debug().Delete(&work)
+    db.DB.Delete(&work)
     return c.JSON(http.StatusOK, work)
 }
