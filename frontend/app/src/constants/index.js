@@ -3,7 +3,6 @@ export const CLIENTID = 'tTj6YzdH1RXelahokozSAjJIP6SY3dXB';
 export const DEVELOP_REDIRECT_URI = 'http://localhost:5173'
 export const DEVELOP_ABOUT_API_ENDPOINT = 'http://localhost:8080/about'
 export const DEVELOP_WORK_API_ENDPOINT = 'http://localhost:8080/work'
-export const TINYMCE_API_KEY = '8lnxqokt1ogzn45wow78r1t4ia0dnasq29rm21pl3qmn12qi'
 export const TINYMCE_INIT_OPTIONS = {
   toolbar_mode: 'sliding',
   body_class: 'my_class',

@@ -4,8 +4,7 @@ import Textarea from '@/components/common/Textarea.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import useWork from '../../composable/useWork.ts'
 import { useRouter } from "vue-router";
-import { TINYMCE_API_KEY, TINYMCE_INIT_OPTIONS } from '@/constants'
-import Editor from '@tinymce/tinymce-vue'
+
 const router = useRouter();
 
 const labelProjectName = 'プロジェクト名'

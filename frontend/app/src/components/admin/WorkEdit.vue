@@ -6,8 +6,6 @@ import useWork from '../../composable/useWork.ts'
 import { onMounted } from 'vue'
 import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
-import { TINYMCE_API_KEY, TINYMCE_INIT_OPTIONS } from '@/constants'
-import Editor from '@tinymce/tinymce-vue'
 
 const router = useRouter();
 const route = useRoute();
