@@ -5,7 +5,6 @@ import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import DangerButton from '@/components/common/DangerButton.vue'
 import GreenButton from '@/components/common/GreenButton.vue'
 import Input from '@/components/common/Input.vue'
-import Textarea from '@/components/common/Textarea.vue'
 import DisplayHtml from '@/components/common/DisplayHtml.vue'
 import { onMounted, nextTick,ref } from 'vue'
 import { useRouter } from "vue-router";
@@ -46,21 +45,23 @@ onMounted(async () => {
             <div class="basis-1/2 overflow-auto fixedborder-solid border-2 border-indigo-500 rounded-lg bg-white min-h-full h-96 p-10 md:mr-8 max-md:mb-8">
                 <h1 class="text-xl underline underline-offset-4 mb-4">Works</h1>
                 <div v-if="isEmpty">
-                    <p class="text-gray-400">Worksが登録されていません。</p>
+                    <p id="isEmptyWorks" class="text-gray-400">Worksが登録されていません。</p>
                 </div>
-                                <div v-else>
+                <div v-else>
                     <ul v-for="(item, index) in works" :key="index">
                         <li class="mb-4 grid grid-cols-2">
                             <a class="cursor-pointer text-blue-500 hover:underline mr-8" @click.prevent = "fetchWorkData(item.ID)">projectName: {{ item.projectName }}</a>
                             <div>
                                 <DangerButton
                                     class="mr-4"
+                                    :id="'Work削除ボタン'"
                                     :type="'button'" 
                                     :name="'削除'" 
                                     @click="deleteWorkData(item)"
                                 >
                                 </DangerButton>
                                 <GreenButton
+                                    :id="'Work編集ボタン'"
                                     :type="'button'" 
                                     :name="'更新'" 
                                     @click="fetchWorkData(item.ID)"
@@ -74,7 +75,7 @@ onMounted(async () => {
             <div class="relative basis-1/2 overflow-auto border-solid border-2 border-indigo-500 rounded-lg bg-white h-96 max-h-full p-10 md:mr-6">
                 <h1 class="text-xl underline underline-offset-4 mb-4">About</h1>
                 <div v-if="isNil">
-                    <p class="mb-4 text-gray-400">Aboutが登録されていません。</p>
+                    <p id="isNilAbout" class="mb-4 text-gray-400">Aboutが登録されていません。</p>
                     <PrimaryButton
                         :type="'button'" 
                         :name="'About登録ページへ'" 
@@ -120,6 +121,7 @@ onMounted(async () => {
                     </div>
                     <GreenButton
                         class="sticky bottom-0 float-right"
+                        :id="'About編集ボタン'"
                         :type="'button'" 
                         :name="'About編集ページへ'" 
                         @click="goToAbout"

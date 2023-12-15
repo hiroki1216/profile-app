@@ -15,7 +15,7 @@ const labelIntroduction = 'プロジェクト詳細'
 const labelResponsible = '担当業務'
 const labelAcquiredSkill = '身につけたスキル'
 const submitType = 'submit'
-const submitName = '保存'
+const submitName = '登録'
 const { work, createWork }= useWork();
 
 const onUpdateProjectName  = (value)=>{
@@ -42,7 +42,6 @@ const onUpdateAcquiredSkill = (value)=>{
 const onSubmit = async()=>{
     try{
         const data = await createWork(work.value);
-        console.log(data);
     }catch (error) {
         console.log("error:", error);
     }
@@ -51,7 +50,7 @@ const onSubmit = async()=>{
 </script>
 <template>
     <div class="bg-gradient-to-r from-cyan-500 to-yellow-500">
-        <h2 class="text-white font-bold text-xl underline underline-offset-4 p-8">Work作成画面</h2>
+        <h2 class="text-white font-bold text-xl underline underline-offset-4 p-8">Work登録画面</h2>
         <div class="flex flex-col md:flex-row md:flex-wrap md:gap-4 justify-center items-center">
             <div class="bg-white border border-indigo-500 rounded-lg p-8">
                 <div class="md:grid grid-cols-2 md:gap-4">

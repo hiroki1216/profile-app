@@ -17,7 +17,7 @@ const labelIntroduction = 'プロジェクト詳細'
 const labelResponsible = '担当業務'
 const labelAcquiredSkill = '身につけたスキル'
 const submitType = 'submit'
-const submitName = '保存'
+const submitName = '更新'
 const { work, getWork, updateWork }= useWork();
 const id = route.params.id;
 onMounted(async () => {
@@ -48,7 +48,6 @@ const onUpdateAcquiredSkill = (value)=>{
 const onSubmit = async()=>{
     try{
         const data = await updateWork(work.value, id);
-        console.log(data);
     }catch (error) {
         console.log("error:", error);
     }

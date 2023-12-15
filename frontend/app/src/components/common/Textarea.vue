@@ -12,7 +12,7 @@ const emits = defineEmits(
 const onUpdateValue = (value)=>{
    emits('input', value);
 }
-const tinymce_api_key = import.meta.env.VITE_TINYMCE_API_KEY
+const tinymce_api_key = process.env.VITE_TINYMCE_API_KEY
 
 </script>
 <template>

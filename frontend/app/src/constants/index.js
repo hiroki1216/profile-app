@@ -12,7 +12,7 @@ export const TINYMCE_INIT_OPTIONS = {
   language: 'ja',
   spellchecker_language: 'ja',
   content_css: 'http://localhost:5173/tinymce/css/content_css.css',
-  plugins: 'mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+  plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
   toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
   /* enable title field in the Image dialog*/
   image_title: true,
