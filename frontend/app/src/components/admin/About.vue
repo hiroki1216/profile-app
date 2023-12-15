@@ -12,7 +12,8 @@ const labelSpeciality = '専門分野'
 const labelExperience = '開発経験'
 const labelStrength = 'アピールポイント'
 const submitType = 'submit'
-const submitName = '保存'
+const submitRegister = '登録'
+const submitUpdate = '更新'
 const router = useRouter();
 const isNil = ref(true)
 const { about, createAbout, getAbout, updateAbout } = useAbout();
@@ -39,14 +40,12 @@ onMounted(async () => {
     if(res.value.data !== "nil"){
         isNil.value = false;
         about.value = {...res.value}
-        console.log("nilではありません");
     }
     await nextTick();
 });
 const onUpdate = async()=>{
     try{
         const data = await updateAbout(about.value);
-        console.log(data);
     }catch (error) {
         console.log("error:", error);
     }
@@ -55,7 +54,6 @@ const onUpdate = async()=>{
 const onSubmit = async()=>{
     try{
         const data = await createAbout(about.value);
-        console.log(data);
     }catch (error) {
         console.log("error:", error);
     }
@@ -64,7 +62,7 @@ const onSubmit = async()=>{
 </script>
 <template>
     <div class="bg-gradient-to-r from-cyan-500 to-yellow-500">
-        <h2 v-if="isNil" class="text-white font-bold text-xl underline underline-offset-4 p-8">About作成画面</h2>
+        <h2 v-if="isNil" class="text-white font-bold text-xl underline underline-offset-4 p-8">About登録画面</h2>
         <h2 v-else="isNil" class="text-white font-bold text-xl underline underline-offset-4 p-8">About編集画面</h2>
         <div class="flex flex-col md:flex-row md:flex-wrap md:gap-4 justify-center items-center">
             <div class="bg-white border border-indigo-500 rounded-lg p-8">
@@ -103,13 +101,13 @@ const onSubmit = async()=>{
                 <div class="">
                     <PrimaryButton v-if="isNil"
                     :type="submitType" 
-                    :name="submitName" 
+                    :name="submitRegister" 
                     @click="onSubmit"
                     ></PrimaryButton>
                     <PrimaryButton v-else="isNil"
-                        :type="submitType" 
-                        :name="submitName" 
-                        @click="onUpdate"
+                    :type="submitType" 
+                    :name="submitUpdate" 
+                    @click="onUpdate"
                     ></PrimaryButton>
                 </div>
             </div>
