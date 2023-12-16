@@ -1,0 +1,13 @@
+## Ignore app-specific files and directories
+app/node_modules
+app/npm-debug.log
+app/*.log
+app/*.swp
+app/*.swo
+app/.DS_Store
+app/.vscode/
+app/__pycache__/
+app/tests
+app/docs
+app/.env
+app/.env.local
