@@ -4,6 +4,8 @@ import Textarea from '@/components/common/Textarea.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import useWork from '../../composable/useWork.ts'
 import { useRouter } from "vue-router";
+import { useVuelidate } from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 
 const router = useRouter();
 
@@ -17,7 +19,16 @@ const labelAcquiredSkill = '身につけたスキル'
 const submitType = 'submit'
 const submitName = '登録'
 const { work, createWork }= useWork();
-
+const rules = {
+    projectName: { required }, 
+    language: { required }, 
+    framework: { required }, 
+    tool: { required }, 
+    introduction: { required }, 
+    responsible: { required }, 
+    acquiredSkill: { required }, 
+}
+const v$ = useVuelidate(rules, work)
 const onUpdateProjectName  = (value)=>{
     work.value.projectName = value.target.value;
 }
@@ -41,7 +52,11 @@ const onUpdateAcquiredSkill = (value)=>{
 }
 const onSubmit = async()=>{
     try{
-        const data = await createWork(work.value);
+        const result = await v$.value.$validate()
+        if (!result) {
+            return
+        }
+        await createWork(work.value);
     }catch (error) {
         console.log("error:", error);
     }
@@ -57,37 +72,44 @@ const onSubmit = async()=>{
                     <Input 
                         :label-name="labelProjectName" 
                         :input-value="work.projectName"
+                        :invalid="v$.projectName.required.$invalid"
                         @input = "onUpdateProjectName"
                     ></Input>
                     <Input 
                         :label-name="labelLanguage" 
                         :input-value="work.language"
+                        :invalid="v$.language.required.$invalid"
                         @input = "onUpdateLanguage"
                     ></Input>
                     <Input 
                         :label-name="labelFramework" 
                         :input-value="work.framework"
+                        :invalid="v$.framework.required.$invalid"
                         @input = "onUpdateFramework"
                     ></Input>
                     <Input 
                         :label-name="labelTool" 
                         :input-value="work.tool"
+                        :invalid="v$.tool.required.$invalid"
                         @input = "onUpdateTool"
                     ></Input>
                 </div>
                 <Textarea 
                     :label-name="labelIntroduction" 
                     :textarea-value="work.introduction"
+                    :invalid="v$.introduction.required.$invalid"
                     @input = "onUpdateIntroduction"
                 ></Textarea>
                 <Textarea 
                     :label-name="labelResponsible" 
                     :textarea-value="work.responsible"
+                    :invalid="v$.responsible.required.$invalid"
                     @input = "onUpdateResponsible"
                 ></Textarea>
                 <Textarea 
                     :label-name="labelAcquiredSkill" 
                     :textarea-value="work.acquiredSkill"
+                    :invalid="v$.acquiredSkill.required.$invalid"
                     @input = "onUpdateAcquiredSkill"
                 ></Textarea>
                 <PrimaryButton 
