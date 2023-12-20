@@ -8,6 +8,8 @@ import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
+import {useToast} from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-sugar.css'
 
 const router = useRouter();
 const route = useRoute();
@@ -32,6 +34,8 @@ const rules = {
     acquiredSkill: { required }, 
 }
 const v$ = useVuelidate(rules, work)
+const $toast = useToast();
+
 onMounted(async () => {
     const res = await getWork(id);
     work.value = {...res.value}
@@ -61,13 +65,25 @@ const onSubmit = async()=>{
     try{
         const result = await v$.value.$validate()
         if (!result) {
+            $toast.error("必須項目が入力されていません。", {
+                position: 'top-right'
+            })
+            $toast.error("Workの更新に失敗しました。", {
+                position: 'top-right',
+                queue: true,
+            })
             return
         }
         await updateWork(work.value, id);
+        $toast.success("Aboutの更新に成功しました。", {
+            position: 'top-right'
+        })
     }catch (error) {
         console.log("error:", error);
+        $toast.error("Workの更新に失敗しました。", {
+                position: 'top-right'
+        })
     }
-    router.push({ name: 'adminDashboard' })
 }
 </script>
 <template>

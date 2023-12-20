@@ -6,9 +6,10 @@ import useWork from '../../composable/useWork.ts'
 import { useRouter } from "vue-router";
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
+import {useToast} from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-sugar.css'
 
 const router = useRouter();
-
 const labelProjectName = 'プロジェクト名'
 const labelLanguage = '言語'
 const labelFramework = 'フレームワーク'
@@ -29,6 +30,8 @@ const rules = {
     acquiredSkill: { required }, 
 }
 const v$ = useVuelidate(rules, work)
+const $toast = useToast();
+
 const onUpdateProjectName  = (value)=>{
     work.value.projectName = value.target.value;
 }
@@ -54,13 +57,29 @@ const onSubmit = async()=>{
     try{
         const result = await v$.value.$validate()
         if (!result) {
+            $toast.error("必須項目が入力されていません。", {
+                position: 'top-right'
+            })
+            $toast.error("Workの作成に失敗しました。", {
+                position: 'top-right',
+                queue: true,
+            })
+            console.log("onSubmit失敗")
             return
         }
-        await createWork(work.value);
+        const data = await createWork(work.value)
+        const workId =data.value.ID
+        $toast.success("Workの作成に成功しました。", {
+            position: 'top-right'
+        })
+        router.push({ name: 'workEdit', params: { id: workId } })
     }catch (error) {
         console.log("error:", error);
+        $toast.error("Workの作成に失敗しました。", {
+                position: 'top-right'
+        })
+        
     }
-    router.push({ name: 'adminDashboard' })
 }
 </script>
 <template>

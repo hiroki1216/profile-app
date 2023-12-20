@@ -7,6 +7,9 @@ import { onMounted, nextTick, ref } from 'vue'
 import { useRouter } from "vue-router"
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
+import {useToast} from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-sugar.css'
+
 const labelName = '名前'
 const labelCertification = '資格'
 const labelIntroduction = '自己紹介'
@@ -20,14 +23,16 @@ const router = useRouter();
 const isNil = ref(true)
 const { about, createAbout, getAbout, updateAbout } = useAbout();
 const rules = {
-        name: { required }, 
-        introduction: { required }, 
-        certification: { required }, 
-        speciality: { required }, 
-        experiences: { required }, 
-        strength: { required }, 
+    name: { required }, 
+    introduction: { required }, 
+    certification: { required }, 
+    speciality: { required }, 
+    experiences: { required }, 
+    strength: { required }, 
 }
 const v$ = useVuelidate(rules, about)
+const $toast = useToast();
+
 const onUpdateName = (value)=>{
     about.value.name = value.target.value;
 }
@@ -58,25 +63,52 @@ const onUpdate = async()=>{
     try{
         const result = await v$.value.$validate()
         if (!result) {
+            $toast.error("必須項目が入力されていません。", {
+                position: 'top-right'
+            })
+            $toast.error("Aboutの更新に失敗しました。", {
+                position: 'top-right',
+                queue: true,
+            })
             return
         }
         const data = await updateAbout(about.value);
+        $toast.success("Aboutの更新に成功しました。", {
+            position: 'top-right'
+        })
+        router.push({  name: 'adminDashboard' })
     }catch (error) {
         console.log("error:", error);
+        $toast.error("Aboutの更新に失敗しました。", {
+                position: 'top-right',
+        })
     }
-    router.push({  name: 'adminDashboard' })
 }
 const onSubmit = async()=>{
     try{
         const result = await v$.value.$validate()
         if (!result) {
+            $toast.error("必須項目が入力されていません。", {
+                position: 'top-right'
+            })
+            $toast.error("Aboutの作成に失敗しました。", {
+                position: 'top-right',
+                queue: true,
+            })
             return
         }
         await createAbout(about.value);
+        $toast.success("Aboutの作成に成功しました。", {
+            position: 'top-right'
+        })
+        router.push({  name: 'adminDashboard' })
     }catch (error) {
+
         console.log("error:", error);
+        $toast.error("Aboutの更新に失敗しました。", {
+                position: 'top-right',
+        })
     }
-    router.push({  name: 'adminDashboard' })
 }
 </script>
 <template>
@@ -92,7 +124,6 @@ const onSubmit = async()=>{
                     :invalid="v$.name.required.$invalid"
                     @input = "onUpdateName"
                     ></Input>
-                    <div v-if="v$.name.$error">Name field has an error.</div>
                     <Input 
                     :label-name="labelCertification" 
                     :input-value="about.certification"
