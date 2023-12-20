@@ -20,7 +20,8 @@ const tinymce_api_key = process.env.VITE_TINYMCE_API_KEY
   <div>
     <label :for="labelName">{{ labelName }}</label>
     <div class="mt-1 mb-8">
-      <Editor   
+      <Editor  
+      :id="labelName"
       :api-key=tinymce_api_key
       :init="TINYMCE_INIT_OPTIONS"
       :initial-value="textareaValue"
