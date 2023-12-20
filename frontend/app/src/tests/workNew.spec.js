@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { mount,flushPromises } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import WorkNew from '../components/admin/WorkNew.vue' 
 import Input from '../components/common/Input.vue'
@@ -27,8 +27,12 @@ describe('Work登録画面', () => {
       acquiredSkill: "",
     }
   }
-  it('work登録画面でworkの値が登録され、登録後ダッシュボードに遷移すること', async () => {
-    const mockCreateWork = jest.fn()
+  it('work登録画面でworkの値が登録され、登録後に編集画面に遷移すること', async () => {
+    const mockCreateWork = jest.fn().mockResolvedValue({
+      value: {
+        ID: 1
+      }
+    })
     useWork.mockImplementation(() => ({
       work: work,
       createWork: mockCreateWork,
@@ -47,11 +51,12 @@ describe('Work登録画面', () => {
     await wrapper.find("#プロジェクト名").trigger("input")
     expect(wrapper.vm.work.value.projectName).toBe("project1")
     //登録処理
-    wrapper.vm.onUpdate = jest.fn()
+    wrapper.vm.v$.$validate = jest.fn().mockResolvedValue(true)
     await wrapper.find("button").trigger("click")
     expect(mockCreateWork).toHaveBeenCalled()
     //adminDashboardに遷移すること
-    expect(push).toHaveBeenCalledWith({ name: 'adminDashboard' });
+    await flushPromises()
+    expect(push).toHaveBeenCalledWith(expect.objectContaining({ name: 'workEdit', params: { id: 1 } }));
   });
   it('正しい数の子コンポーネントが表示されること', async () => {
     const wrapper = mount(WorkNew)

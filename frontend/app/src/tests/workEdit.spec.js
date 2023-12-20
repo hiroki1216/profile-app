@@ -63,7 +63,7 @@ describe('Work編集画面', () => {
     await nextTick()
     expect(wrapper.vm.work).toStrictEqual(initialWork)
   });
-  it('work編集画面でworkの値が登録され、編集後ダッシュボードに遷移すること', async () => {
+  it('work編集画面でworkの値が更新されること', async () => {
     const mockUpdateWork = jest.fn()
     const mockGetWork = jest.fn().mockResolvedValue(initialWork)
     useWork.mockImplementation(() => ({
@@ -85,11 +85,9 @@ describe('Work編集画面', () => {
     await wrapper.find("#プロジェクト名").trigger("input")
     expect(wrapper.vm.work.value.projectName).toBe("project1")
     //登録処理
-    wrapper.vm.onUpdate = jest.fn()
+    wrapper.vm.v$.$validate = jest.fn().mockResolvedValue(true)
     await wrapper.find("button").trigger("click")
     expect(mockUpdateWork).toHaveBeenCalled()
-    //adminDashboardに遷移すること
-    expect(push).toHaveBeenCalledWith({ name: 'adminDashboard' });
   });
   it('正しい数の子コンポーネントが表示されること', async () => {
     const wrapper = mount(WorkEdit)
