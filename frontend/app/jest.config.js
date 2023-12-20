@@ -2,6 +2,7 @@ module.exports = {
   preset: 'ts-jest',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    "^.+.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
   },
   globals: {},
   testEnvironment: 'jsdom',
@@ -12,7 +13,7 @@ module.exports = {
   transform: {
     "^.+\\.vue$": "vue-jest",
     "^.+\\js$": "babel-jest",
-    // '^.+\\.tsx?$': "ts-jest",
+    ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
   },
   moduleFileExtensions: ['vue', 'js', 'json', 'jsx', 'ts', 'tsx', 'node']
 }
