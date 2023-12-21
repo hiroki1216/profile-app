@@ -78,9 +78,12 @@ const onUpdate = async()=>{
         })
         router.push({  name: 'adminDashboard' })
     }catch (error) {
-        console.log("error:", error);
+        $toast.error(error, {
+            position: 'top-right'
+        })        
         $toast.error("Aboutの更新に失敗しました。", {
-                position: 'top-right',
+            position: 'top-right',
+            queue: true,
         })
     }
 }
@@ -103,10 +106,12 @@ const onSubmit = async()=>{
         })
         router.push({  name: 'adminDashboard' })
     }catch (error) {
-
-        console.log("error:", error);
+        $toast.error(error, {
+            position: 'top-right'
+        })
         $toast.error("Aboutの更新に失敗しました。", {
-                position: 'top-right',
+            position: 'top-right',
+            queue: true,
         })
     }
 }

@@ -74,9 +74,12 @@ const onSubmit = async()=>{
         })
         router.push({ name: 'workEdit', params: { id: workId } })
     }catch (error) {
-        console.log("error:", error);
+        $toast.error(error, {
+            position: 'top-right'
+        })
         $toast.error("Workの作成に失敗しました。", {
-                position: 'top-right'
+            position: 'top-right',
+            queue: true,
         })
         
     }

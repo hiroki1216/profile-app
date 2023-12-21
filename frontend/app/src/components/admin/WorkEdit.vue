@@ -79,9 +79,12 @@ const onSubmit = async()=>{
             position: 'top-right'
         })
     }catch (error) {
-        console.log("error:", error);
+        $toast.error(error, {
+            position: 'top-right'
+        })
         $toast.error("Workの更新に失敗しました。", {
-                position: 'top-right'
+            position: 'top-right',
+            queue: true,
         })
     }
 }
