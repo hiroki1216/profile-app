@@ -12,12 +12,15 @@
     "@auth0/auth0-vue": "^2.3.1",
     "@heroicons/vue": "^2.0.18",
     "@tinymce/tinymce-vue": "^5.1.1",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
     "@vueuse/core": "^10.5.0",
     "dotenv": "^16.3.1",
     "moment": "^2.24.0",
     "vite-plugin-env-compatible": "^2.0.1",
     "vue": "^3.3.9",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue-toast-notification": "^3.1.2"
   },
   "devDependencies": {
     "@babel/node": "^7.8.7",
@@ -31,6 +34,7 @@
     "babel-jest": "^25.2.6",
     "flush-promises": "^1.0.2",
     "jest": "^25.2.7",
+    "jest-transform-stub": "^2.0.0",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
     "ts-jest": "^25.3.1",

@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { mount, flushPromises } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import About from '../components/admin/About.vue' 
 import Input from '../components/common/Input.vue'
@@ -69,9 +69,11 @@ describe('About登録/編集画面', () => {
     expect(wrapper.vm.about.value.name).toBe("bob")
     //登録処理
     wrapper.vm.onUpdate = jest.fn()
+    wrapper.vm.v$.$validate = jest.fn().mockResolvedValue(true)
     await wrapper.find("button").trigger("click")
     expect(mockCreateAbout).toHaveBeenCalled()
     //adminDashboardに遷移すること
+    await flushPromises()
     expect(push).toHaveBeenCalledWith({ name: 'adminDashboard' });
   });
   it('マウント時にgetAbout()が呼ばれ、既存データでaboutが初期化されること', async () => {
@@ -91,7 +93,7 @@ describe('About登録/編集画面', () => {
 
     //getAbout()の処理完了を待つ
     await wrapper.vm.getAbout();
-    await nextTick()
+    await flushPromises()
     expect(wrapper.vm.about).toStrictEqual(initialAbout)
   });
   it('正しい数の子コンポーネントが表示されること', async () => {
@@ -103,7 +105,7 @@ describe('About登録/編集画面', () => {
     expect(textareaComponents.length).toBe(3)
     expect(primaryButtons.length).toBe(1)
   });
-  it('about編集画面でaboutの値が更新され、更新後ダッシュボードに遷移すること', async () => {
+  it('about編集画面でaboutの値が更新され、更新後にダッシュボードに遷移すること', async () => {
     const mockGetAbout = jest.fn().mockResolvedValue(initialAbout)
     const mockUpdateAbout = jest.fn()
     useAbout.mockImplementation(() => ({
@@ -111,7 +113,6 @@ describe('About登録/編集画面', () => {
       getAbout: mockGetAbout,
       updateAbout: mockUpdateAbout,
     }))
-
     const push = jest.fn();
     useRouter.mockImplementationOnce(() => ({
       push: push
@@ -131,10 +132,11 @@ describe('About登録/編集画面', () => {
     await wrapper.find("#名前").trigger("input")
     expect(wrapper.vm.about.value.name).toBe("joe")
     //更新処理
-    wrapper.vm.onUpdate = jest.fn()
+    wrapper.vm.v$.$validate = jest.fn().mockResolvedValue(true)
     await wrapper.find("button").trigger("click")
     expect(mockUpdateAbout).toHaveBeenCalled()
     //adminDashboardに遷移すること
+    await flushPromises()
     expect(push).toHaveBeenCalledWith({ name: 'adminDashboard' });
   });
 });

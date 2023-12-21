@@ -1,2 +1,4 @@
-/mysql_data/
+mysql_data/
 .env
+.vscode/
+.DS_Store
